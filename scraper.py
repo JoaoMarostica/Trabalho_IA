@@ -19,23 +19,18 @@ for music in best:
     song = content.find('h1', class_ = 'textStyle-primary').text
     artist = content.find('h2', class_ = 'textStyle-secondary').text
     lyrics = content.find('div', class_ = 'lyric-original')
-    rank = int(content.find('div', class_ = 'head-info-exib').b.text.replace('.',''))
-    popularity = ''
-    if rank < 1000000:
-        popularity = 'unpopular'
-    elif rank < 10000000:
-        popularity = 'popular'
-    else:
-        popularity = 'hit'
-    
+    b = content.find('a', class_ = 'lyric-filter-learn')
+
+    language = 'english' if b else 'portuguese'
+       
     lyrics_str = ''
     for line in lyrics.find_all(string=True):
         lyrics_str += line + ' '
 
-    csv_list.append((song, artist, rank, popularity, lyrics_str))
+    csv_list.append((song, artist, language, lyrics_str))
     print(f'done scraping music {i}')
 print('scraping completed')
-collumns = ['song', 'artist', 'rank', 'popularity', 'lyrics']
+collumns = ['song', 'artist', 'language', 'lyrics']
 
 with open('data.csv', 'w', newline='') as f:
     writer = csv.writer(f)
