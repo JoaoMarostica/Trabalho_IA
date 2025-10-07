@@ -21,7 +21,7 @@ for music in best:
     lyrics = content.find('div', class_ = 'lyric-original')
     b = content.find('a', class_ = 'lyric-filter-learn')
 
-    language = 'english' if b else 'portuguese'
+    language = 'not portuguese' if b else 'portuguese'
        
     lyrics_str = ''
     for line in lyrics.find_all(string=True):
